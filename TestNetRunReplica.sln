@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{DFF75155-F65C-483C-AF64-93110488EF02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{A8DBAB76-8DC1-4B98-B3EF-2B739895339F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos", "Dtos\Dtos.csproj", "{E44057FE-3A97-45F2-A453-8E407357AF34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{DFF75155-F65C-483C-AF64-93110488EF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF75155-F65C-483C-AF64-93110488EF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF75155-F65C-483C-AF64-93110488EF02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8DBAB76-8DC1-4B98-B3EF-2B739895339F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DBAB76-8DC1-4B98-B3EF-2B739895339F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DBAB76-8DC1-4B98-B3EF-2B739895339F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DBAB76-8DC1-4B98-B3EF-2B739895339F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44057FE-3A97-45F2-A453-8E407357AF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44057FE-3A97-45F2-A453-8E407357AF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44057FE-3A97-45F2-A453-8E407357AF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44057FE-3A97-45F2-A453-8E407357AF34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
