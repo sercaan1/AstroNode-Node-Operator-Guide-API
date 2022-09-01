@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Abstracts\" />
-    <Folder Include="EntityFramework\Concrete\" />
-    <Folder Include="EntityFramework\Seeds\" />
   </ItemGroup>
 
   <ItemGroup>
