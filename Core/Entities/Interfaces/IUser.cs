@@ -12,5 +12,6 @@ namespace Core.Entities.Interfaces
         string LastName { get; set; }
         string Email { get; set; }
         string Image { get; set; }
+        string IdentityId { get; set; }
     }
 }
