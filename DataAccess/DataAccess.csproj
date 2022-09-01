@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Abstracts\" />
     <Folder Include="EntityFramework\Concrete\" />
-    <Folder Include="EntityFramework\Context\" />
     <Folder Include="EntityFramework\Seeds\" />
   </ItemGroup>
 
@@ -24,6 +23,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\Mapping\Mapping.csproj" />
   </ItemGroup>
 
 </Project>

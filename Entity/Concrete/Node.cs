@@ -23,5 +23,7 @@ namespace Entity.Concrete
         public List<Question> Questions { get; set; }
         public Guid ResourceId { get; set; }
         public Resource Resource { get; set; }
+        public Guid GuideId { get; set; }
+        public Guide Guide { get; set; }
     }
 }

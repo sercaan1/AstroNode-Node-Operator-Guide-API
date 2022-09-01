@@ -14,5 +14,7 @@ namespace Entity.Concrete
         public int Difficulty { get; set; }
         public string Prize { get; set; }
         public string Lock { get; set; }
+        public Guid NodeId { get; set; }
+        public Node Node { get; set; }
     }
 }

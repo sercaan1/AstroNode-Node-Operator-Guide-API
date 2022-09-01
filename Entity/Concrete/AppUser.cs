@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Concrete
 {
-    public class Guide : AuditableEntity
+    public class AppUser : BaseUser
     {
-        public string Description { get; set; }
-        public Guid NodeId { get; set; }
-        public Node Node { get; set; }
     }
 }
