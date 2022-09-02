@@ -21,7 +21,7 @@ namespace Mapping
             builder.Property(x => x.WebPageLink).IsRequired(false);
             builder.Property(x => x.DiscordLink).IsRequired(false);
 
-            builder.HasOne(x => x.Node).WithOne(x => x.SocialMedia).HasForeignKey<SocialMedia>(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Node).WithOne(x => x.SocialMedia).HasForeignKey<SocialMedia>(x => x.NodeId);
         }
     }
 }

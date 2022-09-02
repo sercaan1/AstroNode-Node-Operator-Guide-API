@@ -14,16 +14,11 @@ namespace Entity.Concrete
         public string Image { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public Guid HardwareId { get; set; }
         public virtual Hardware Hardware { get; set; }
-        public Guid SocialMediaId { get; set; }
         public virtual SocialMedia SocialMedia { get; set; }
-        public Guid ReviewId { get; set; }
         public virtual Review Review { get; set; }
         public virtual List<Question> Questions { get; set; }
-        public Guid ResourceId { get; set; }
         public virtual Resource Resource { get; set; }
-        public Guid GuideId { get; set; }
         public virtual Guide Guide { get; set; }
     }
 }

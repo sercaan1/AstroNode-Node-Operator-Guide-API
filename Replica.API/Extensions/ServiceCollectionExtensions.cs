@@ -23,6 +23,8 @@ namespace Replica.API.Extensions
         public static void AddBusinessServices(this IServiceCollection services)
         {
             services.AddScoped<INodeService, NodeManager>();
+            services.AddScoped<IHardwareService, HardwareManager>();
+            services.AddScoped<ISocialMediaService, SocialMediaManager>();
         }
     }
 }

@@ -94,7 +94,7 @@ namespace DataAccess.EntityFramework.Context
                 entityEntry.State = EntityState.Modified;
                 entityEntry.Entity.Status = Status.Passive;
                 (entityEntry.Entity as AuditableEntity).DeletedDate = DateTime.Now;
-                (entityEntry.Entity as AuditableEntity).DeletedBy = _contextAccessor.HttpContext.User.Identity.Name;
+                (entityEntry.Entity as AuditableEntity).DeletedBy = _contextAccessor.HttpContext.User.Identity.Name ?? "Non-User";
             }
         }
     }

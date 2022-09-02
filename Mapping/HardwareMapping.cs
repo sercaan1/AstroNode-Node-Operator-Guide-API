@@ -21,7 +21,7 @@ namespace Mapping
             builder.Property(x => x.DownloadSpeed).HasMaxLength(64).IsRequired(false);
             builder.Property(x => x.Storage).HasMaxLength(64).IsRequired(false);
 
-            builder.HasOne(x => x.Node).WithOne(x => x.Hardware).HasForeignKey<Hardware>(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Node).WithOne(x => x.Hardware).HasForeignKey<Hardware>(x => x.NodeId);
         }
     }
 }

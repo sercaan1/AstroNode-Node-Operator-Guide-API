@@ -19,7 +19,7 @@ namespace Mapping
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Answer).IsRequired();
 
-            builder.HasOne(x => x.Node).WithMany(x => x.Questions).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Node).WithMany(x => x.Questions).HasForeignKey(x => x.NodeId);
         }
     }
 }

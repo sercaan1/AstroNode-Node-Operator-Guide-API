@@ -17,10 +17,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -40,10 +40,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -95,46 +95,25 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guides",
+                name: "Nodes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Guides", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Hardwares",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CPU = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    RAM = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    Storage = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    DownloadSpeed = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    NodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hardwares", x => x.Id);
+                    table.PrimaryKey("PK_Nodes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -244,40 +223,56 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Nodes",
+                name: "Guides",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    HardwareId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SocialMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ResourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GuideId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Nodes", x => x.Id);
+                    table.PrimaryKey("PK_Guides", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Nodes_Guides_GuideId",
-                        column: x => x.GuideId,
-                        principalTable: "Guides",
+                        name: "FK_Guides_Nodes_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Nodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hardwares",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CPU = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    RAM = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Storage = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    DownloadSpeed = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    NodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hardwares", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Nodes_Hardwares_HardwareId",
-                        column: x => x.HardwareId,
-                        principalTable: "Hardwares",
+                        name: "FK_Hardwares_Nodes_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Nodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -293,10 +288,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -305,7 +300,8 @@ namespace DataAccess.Migrations
                         name: "FK_Questions_Nodes_NodeId",
                         column: x => x.NodeId,
                         principalTable: "Nodes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,10 +314,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -330,7 +326,8 @@ namespace DataAccess.Migrations
                         name: "FK_Resources_Nodes_NodeId",
                         column: x => x.NodeId,
                         principalTable: "Nodes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -347,10 +344,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -359,7 +356,8 @@ namespace DataAccess.Migrations
                         name: "FK_Reviews_Nodes_NodeId",
                         column: x => x.NodeId,
                         principalTable: "Nodes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -375,10 +373,10 @@ namespace DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -387,7 +385,8 @@ namespace DataAccess.Migrations
                         name: "FK_SocialMedias_Nodes_NodeId",
                         column: x => x.NodeId,
                         principalTable: "Nodes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -430,15 +429,15 @@ namespace DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Nodes_GuideId",
-                table: "Nodes",
-                column: "GuideId",
+                name: "IX_Guides_NodeId",
+                table: "Guides",
+                column: "NodeId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Nodes_HardwareId",
-                table: "Nodes",
-                column: "HardwareId",
+                name: "IX_Hardwares_NodeId",
+                table: "Hardwares",
+                column: "NodeId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -489,6 +488,12 @@ namespace DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Guides");
+
+            migrationBuilder.DropTable(
+                name: "Hardwares");
+
+            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
@@ -508,12 +513,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Nodes");
-
-            migrationBuilder.DropTable(
-                name: "Guides");
-
-            migrationBuilder.DropTable(
-                name: "Hardwares");
         }
     }
 }

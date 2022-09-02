@@ -11,7 +11,5 @@ namespace Core.Entities.Abstracts
     {
         public string DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
-        public string ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
     }
 }

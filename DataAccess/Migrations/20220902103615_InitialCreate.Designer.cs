@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220902081249_InitialCreate")]
+    [Migration("20220902103615_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,6 +181,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NodeId")
+                        .IsUnique();
+
                     b.ToTable("Guides");
                 });
 
@@ -237,6 +240,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NodeId")
+                        .IsUnique();
+
                     b.ToTable("Hardwares");
                 });
 
@@ -264,12 +270,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("GuideId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HardwareId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -286,15 +286,6 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ReviewId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SocialMediaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -302,12 +293,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GuideId")
-                        .IsUnique();
-
-                    b.HasIndex("HardwareId")
-                        .IsUnique();
 
                     b.ToTable("Nodes");
                 });
@@ -720,23 +705,26 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Concrete.Node", b =>
+            modelBuilder.Entity("Entity.Concrete.Guide", b =>
                 {
-                    b.HasOne("Entity.Concrete.Guide", "Guide")
-                        .WithOne("Node")
-                        .HasForeignKey("Entity.Concrete.Node", "GuideId")
+                    b.HasOne("Entity.Concrete.Node", "Node")
+                        .WithOne("Guide")
+                        .HasForeignKey("Entity.Concrete.Guide", "NodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Hardware", "Hardware")
-                        .WithOne("Node")
-                        .HasForeignKey("Entity.Concrete.Node", "HardwareId")
+                    b.Navigation("Node");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.Hardware", b =>
+                {
+                    b.HasOne("Entity.Concrete.Node", "Node")
+                        .WithOne("Hardware")
+                        .HasForeignKey("Entity.Concrete.Hardware", "NodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Guide");
-
-                    b.Navigation("Hardware");
+                    b.Navigation("Node");
                 });
 
             modelBuilder.Entity("Entity.Concrete.Question", b =>
@@ -744,7 +732,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Entity.Concrete.Node", "Node")
                         .WithMany("Questions")
                         .HasForeignKey("NodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Node");
@@ -755,7 +743,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Entity.Concrete.Node", "Node")
                         .WithOne("Resource")
                         .HasForeignKey("Entity.Concrete.Resource", "NodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Node");
@@ -766,7 +754,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Entity.Concrete.Node", "Node")
                         .WithOne("Review")
                         .HasForeignKey("Entity.Concrete.Review", "NodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Node");
@@ -777,7 +765,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Entity.Concrete.Node", "Node")
                         .WithOne("SocialMedia")
                         .HasForeignKey("Entity.Concrete.SocialMedia", "NodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Node");
@@ -834,18 +822,12 @@ namespace DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Concrete.Guide", b =>
-                {
-                    b.Navigation("Node");
-                });
-
-            modelBuilder.Entity("Entity.Concrete.Hardware", b =>
-                {
-                    b.Navigation("Node");
-                });
-
             modelBuilder.Entity("Entity.Concrete.Node", b =>
                 {
+                    b.Navigation("Guide");
+
+                    b.Navigation("Hardware");
+
                     b.Navigation("Questions");
 
                     b.Navigation("Resource");

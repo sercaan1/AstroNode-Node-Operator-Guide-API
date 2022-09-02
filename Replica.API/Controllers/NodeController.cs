@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Replica.API.Controllers
 {
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class NodeController : Controller
+    public class NodeController : ControllerBase
     {
         private readonly INodeService _nodeService;
 
@@ -14,7 +15,7 @@ namespace Replica.API.Controllers
             _nodeService = nodeService;
         }
 
-        [HttpPost]
+        [HttpPost(Name = "CreateNode")]
         public async Task<IActionResult> Create([FromBody] NodeCreateDto nodeCreateDto)
         {
             if (ModelState.IsValid)
@@ -24,10 +25,49 @@ namespace Replica.API.Controllers
                 if (creationResult.IsSuccess)
                     return Ok(creationResult.Data);
 
-                return BadRequest(creationResult.Data);
+                return BadRequest(creationResult.Message);
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpGet(Name = "ActiveNodes")]
+        public async Task<IActionResult> GetActiveNodes()
+        {
+            var getActiveNodesResult = await _nodeService.GetActiveNodesAsync();
+
+            if (getActiveNodesResult.IsSuccess)
+            {
+                return Ok(getActiveNodesResult.Data);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet(Name = "DoneNodes")]
+        public async Task<IActionResult> GetDoneNodes()
+        {
+            var getActiveNodesResult = await _nodeService.GetDoneNodesAsync();
+
+            if (getActiveNodesResult.IsSuccess)
+            {
+                return Ok(getActiveNodesResult.Data);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet(Name = "Nodes")]
+        public async Task<IActionResult> GetAllNodes()
+        {
+            var getActiveNodesResult = await _nodeService.GetAllAsync();
+
+            if (getActiveNodesResult.IsSuccess)
+            {
+                return Ok(getActiveNodesResult.Data);
+            }
+
+            return NotFound();
         }
     }
 }

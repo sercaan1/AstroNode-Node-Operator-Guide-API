@@ -1,6 +1,7 @@
 using Business.Profiles;
 using DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Replica.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

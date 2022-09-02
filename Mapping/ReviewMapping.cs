@@ -22,7 +22,7 @@ namespace Mapping
             builder.Property(x => x.Rate).IsRequired(false);
             builder.Property(x => x.Lock).IsRequired(false);
 
-            builder.HasOne(x => x.Node).WithOne(x => x.Review).HasForeignKey<Review>(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Node).WithOne(x => x.Review).HasForeignKey<Review>(x => x.NodeId);
         }
     }
 }

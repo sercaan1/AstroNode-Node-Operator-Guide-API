@@ -1,4 +1,6 @@
-﻿using Entity.Concrete;
+﻿using Dtos.Hardwares;
+using Dtos.SocialMedias;
+using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace Dtos.Nodes
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public Hardware Hardware { get; set; }
-        public SocialMedia SocialMedia { get; set; }
+        public HardwareDto Hardware { get; set; }
+        public SocialMediaDto SocialMedia { get; set; }
     }
 }

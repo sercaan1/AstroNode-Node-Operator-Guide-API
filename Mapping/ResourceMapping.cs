@@ -18,7 +18,7 @@ namespace Mapping
 
             builder.Property(x => x.ResourceLink).IsRequired();
 
-            builder.HasOne(x => x.Node).WithOne(x => x.Resource).HasForeignKey<Resource>(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Node).WithOne(x => x.Resource).HasForeignKey<Resource>(x => x.NodeId);
         }
     }
 }
