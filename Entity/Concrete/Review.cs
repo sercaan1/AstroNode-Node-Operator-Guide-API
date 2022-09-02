@@ -10,11 +10,11 @@ namespace Entity.Concrete
     public class Review : AuditableEntity
     {
         public string Comment { get; set; }
-        public int Rate { get; set; }
-        public int Difficulty { get; set; }
+        public int? Rate { get; set; }
+        public int? Difficulty { get; set; }
         public string Prize { get; set; }
         public string Lock { get; set; }
         public Guid NodeId { get; set; }
-        public Node Node { get; set; }
+        public virtual Node Node { get; set; }
     }
 }

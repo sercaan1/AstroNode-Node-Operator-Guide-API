@@ -11,6 +11,6 @@ namespace Entity.Concrete
     {
         public string ResourceLink { get; set; }
         public Guid NodeId { get; set; }
-        public Node Node { get; set; }
+        public virtual Node Node { get; set; }
     }
 }

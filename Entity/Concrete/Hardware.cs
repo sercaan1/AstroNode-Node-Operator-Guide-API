@@ -14,6 +14,6 @@ namespace Entity.Concrete
         public string Storage { get; set; }
         public string DownloadSpeed { get; set; }
         public Guid NodeId { get; set; }
-        public Node Node { get; set; }
+        public virtual Node Node { get; set; }
     }
 }

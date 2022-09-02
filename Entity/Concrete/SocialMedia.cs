@@ -14,6 +14,6 @@ namespace Entity.Concrete
         public string WebPageLink { get; set; }
         public string DiscordLink { get; set; }
         public Guid NodeId { get; set; }
-        public Node Node { get; set; }
+        public virtual Node Node { get; set; }
     }
 }

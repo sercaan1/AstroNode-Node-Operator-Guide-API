@@ -12,18 +12,18 @@ namespace Entity.Concrete
     {
         public string Name { get; set; }
         public string Image { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public Guid HardwareId { get; set; }
-        public Hardware Hardware { get; set; }
+        public virtual Hardware Hardware { get; set; }
         public Guid SocialMediaId { get; set; }
-        public SocialMedia SocialMedia { get; set; }
+        public virtual SocialMedia SocialMedia { get; set; }
         public Guid ReviewId { get; set; }
-        public Review Review { get; set; }
-        public List<Question> Questions { get; set; }
+        public virtual Review Review { get; set; }
+        public virtual List<Question> Questions { get; set; }
         public Guid ResourceId { get; set; }
-        public Resource Resource { get; set; }
+        public virtual Resource Resource { get; set; }
         public Guid GuideId { get; set; }
-        public Guide Guide { get; set; }
+        public virtual Guide Guide { get; set; }
     }
 }
