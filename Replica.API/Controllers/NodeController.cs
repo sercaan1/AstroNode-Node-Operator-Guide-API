@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Replica.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class NodeController : ControllerBase
     {
         private readonly INodeService _nodeService;
@@ -31,7 +31,7 @@ namespace Replica.API.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet(Name = "ActiveNodes")]
+        [HttpGet("ActiveNodes")]
         public async Task<IActionResult> GetActiveNodes()
         {
             var getActiveNodesResult = await _nodeService.GetActiveNodesAsync();
@@ -44,7 +44,7 @@ namespace Replica.API.Controllers
             return NotFound();
         }
 
-        [HttpGet(Name = "DoneNodes")]
+        [HttpGet("DoneNodes")]
         public async Task<IActionResult> GetDoneNodes()
         {
             var getActiveNodesResult = await _nodeService.GetDoneNodesAsync();
@@ -57,7 +57,7 @@ namespace Replica.API.Controllers
             return NotFound();
         }
 
-        [HttpGet(Name = "Nodes")]
+        [HttpGet("AllNodes")]
         public async Task<IActionResult> GetAllNodes()
         {
             var getActiveNodesResult = await _nodeService.GetAllAsync();

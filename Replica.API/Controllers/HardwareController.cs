@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Replica.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class HardwareController : ControllerBase
     {
         private readonly IHardwareService _hardwareService;
