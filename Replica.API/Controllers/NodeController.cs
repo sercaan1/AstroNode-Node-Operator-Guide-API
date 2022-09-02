@@ -69,5 +69,16 @@ namespace Replica.API.Controllers
 
             return NotFound();
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var getNodeResult = await _nodeService.GetById(id);
+
+            if (getNodeResult.IsSuccess)
+                return Ok(getNodeResult.Data);
+
+            return NotFound(getNodeResult.Message);
+        }
     }
 }

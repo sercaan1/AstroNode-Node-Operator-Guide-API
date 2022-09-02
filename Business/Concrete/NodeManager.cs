@@ -42,7 +42,7 @@ namespace Business.Concrete
 
         public async Task<IDataResult<List<NodeListDto>>> GetActiveNodesAsync()
         {
-            var activeNodes = await _nodeRepository.GetAllAsync(x => x.EndDate < DateTime.Now);
+            var activeNodes = await _nodeRepository.GetAllAsync(x => x.EndDate > DateTime.Now);
 
             return new SuccessDataResult<List<NodeListDto>>(_mapper.Map<List<NodeListDto>>(activeNodes), Messages.ListedSuccessfully);
         }
@@ -54,9 +54,19 @@ namespace Business.Concrete
             return new SuccessDataResult<List<NodeListDto>>(_mapper.Map<List<NodeListDto>>(nodes), Messages.ListedSuccessfully);
         }
 
+        public async Task<IDataResult<NodeDto>> GetById(Guid id)
+        {
+            var node = await _nodeRepository.GetByIdAsync(id);
+
+            if (node is null)
+                return new ErrorDataResult<NodeDto>(Messages.NotFound);
+
+            return new SuccessDataResult<NodeDto>(_mapper.Map<NodeDto>(node), Messages.FoundSuccessfully);
+        }
+
         public async Task<IDataResult<List<NodeListDto>>> GetDoneNodesAsync()
         {
-            var passiveNodes = await _nodeRepository.GetAllAsync(x => x.EndDate > DateTime.Now);
+            var passiveNodes = await _nodeRepository.GetAllAsync(x => x.EndDate < DateTime.Now);
 
             return new SuccessDataResult<List<NodeListDto>>(_mapper.Map<List<NodeListDto>>(passiveNodes), Messages.ListedSuccessfully);
         }

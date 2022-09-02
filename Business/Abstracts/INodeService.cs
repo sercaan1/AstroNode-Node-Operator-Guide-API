@@ -14,5 +14,6 @@ namespace Business.Abstracts
         Task<IDataResult<List<NodeListDto>>> GetActiveNodesAsync();
         Task<IDataResult<List<NodeListDto>>> GetDoneNodesAsync();
         Task<IDataResult<NodeDto>> AddAsync(NodeCreateDto entity);
+        Task<IDataResult<NodeDto>> GetById(Guid id);
     }
 }
