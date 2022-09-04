@@ -31,32 +31,6 @@ namespace Replica.API.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet("ActiveNodes")]
-        public async Task<IActionResult> GetActiveNodes()
-        {
-            var getActiveNodesResult = await _nodeService.GetActiveNodesAsync();
-
-            if (getActiveNodesResult.IsSuccess)
-            {
-                return Ok(getActiveNodesResult.Data);
-            }
-
-            return NotFound();
-        }
-
-        [HttpGet("DoneNodes")]
-        public async Task<IActionResult> GetDoneNodes()
-        {
-            var getActiveNodesResult = await _nodeService.GetDoneNodesAsync();
-
-            if (getActiveNodesResult.IsSuccess)
-            {
-                return Ok(getActiveNodesResult.Data);
-            }
-
-            return NotFound();
-        }
-
         [HttpGet("AllNodes")]
         public async Task<IActionResult> GetAllNodes()
         {

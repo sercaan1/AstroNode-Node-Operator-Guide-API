@@ -25,6 +25,7 @@ namespace Replica.API.Extensions
             services.AddScoped<INodeService, NodeManager>();
             services.AddScoped<IHardwareService, HardwareManager>();
             services.AddScoped<ISocialMediaService, SocialMediaManager>();
+            services.AddScoped<IReviewService, ReviewManager>();
         }
     }
 }

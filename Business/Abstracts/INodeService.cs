@@ -11,8 +11,6 @@ namespace Business.Abstracts
     public interface INodeService
     {
         Task<IDataResult<List<NodeListDto>>> GetAllAsync();
-        Task<IDataResult<List<NodeListDto>>> GetActiveNodesAsync();
-        Task<IDataResult<List<NodeListDto>>> GetDoneNodesAsync();
         Task<IDataResult<NodeDto>> AddAsync(NodeCreateDto entity);
         Task<IDataResult<NodeDto>> GetById(Guid id);
     }
