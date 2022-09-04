@@ -8,6 +8,7 @@ namespace Dtos.SocialMedias
 {
     public class SocialMediaDto
     {
+        public Guid Id { get; set; }
         public string TwitterLink { get; set; }
         public string TelegramLink { get; set; }
         public string WebPageLink { get; set; }

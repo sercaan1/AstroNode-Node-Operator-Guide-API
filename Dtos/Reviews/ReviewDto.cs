@@ -8,6 +8,7 @@ namespace Dtos.Reviews
 {
     public class ReviewDto
     {
+        public Guid Id { get; set; }
         public string Comment { get; set; }
         public int? Rate { get; set; }
         public int? Difficulty { get; set; }
