@@ -15,7 +15,7 @@ namespace Replica.API.Controllers
             _nodeService = nodeService;
         }
 
-        [HttpPost(Name = "CreateNode")]
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody] NodeCreateDto nodeCreateDto)
         {
             if (ModelState.IsValid)

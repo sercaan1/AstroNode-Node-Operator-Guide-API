@@ -1,4 +1,7 @@
-﻿using Entity.Concrete;
+﻿using Dtos.Hardwares;
+using Dtos.Reviews;
+using Dtos.SocialMedias;
+using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +16,8 @@ namespace Dtos.Nodes
         public string Image { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public HardwareCreateDto Hardware { get; set; }
+        public ReviewCreateDto Review { get; set; }
+        public SocialMediaCreateDto SocialMedia { get; set; }
     }
 }
