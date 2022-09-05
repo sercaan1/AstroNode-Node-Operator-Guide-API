@@ -19,17 +19,11 @@ namespace Business.Concrete
     {
         private readonly INodeRepository _nodeRepository;
         private readonly IMapper _mapper;
-        private readonly IHardwareRepository _hardwareRepository;
-        private readonly ISocialMediaRepository _socialMediaRepository;
-        private readonly IReviewRepository _reviewRepository;
 
-        public NodeManager(INodeRepository nodeRepository, IMapper mapper, IHardwareRepository hardwareRepository, ISocialMediaRepository socialMediaRepository, IReviewRepository reviewRepository)
+        public NodeManager(INodeRepository nodeRepository, IMapper mapper)
         {
             _nodeRepository = nodeRepository;
             _mapper = mapper;
-            _hardwareRepository = hardwareRepository;
-            _socialMediaRepository = socialMediaRepository;
-            _reviewRepository = reviewRepository;
         }
 
         public async Task<IDataResult<NodeDto>> AddAsync(NodeCreateDto entity)
@@ -45,6 +39,21 @@ namespace Business.Concrete
                 return new ErrorDataResult<NodeDto>(Messages.AddFail);
 
             return new SuccessDataResult<NodeDto>(_mapper.Map<NodeDto>(node), Messages.AddSuccessfully);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var node = await _nodeRepository.GetByIdAsync(id);
+
+            if (node is null)
+                return false;
+
+            var deleteResponse = await _nodeRepository.DeleteAsync(node);
+
+            if (deleteResponse)
+                return true;
+
+            return false;
         }
 
         public async Task<IDataResult<List<NodeListDto>>> GetAllAsync()

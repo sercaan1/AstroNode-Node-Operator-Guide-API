@@ -54,5 +54,18 @@ namespace Replica.API.Controllers
 
             return NotFound(getNodeResult.Message);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var deleteNodeResult = await _nodeService.DeleteAsync(id);
+
+            if (deleteNodeResult)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }
