@@ -14,6 +14,7 @@ namespace Business.Profiles
         public HardwareProfile()
         {
             CreateMap<HardwareCreateDto, Hardware>();
+            CreateMap<HardwareUpdateDto, Hardware>();
             CreateMap<Hardware, HardwareDto>();
         }
     }

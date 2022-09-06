@@ -14,6 +14,7 @@ namespace Business.Profiles
         public NodeProfile()
         {
             CreateMap<NodeCreateDto, Node>();
+            CreateMap<NodeUpdateDto, Node>();
             CreateMap<Node, NodeDto>();
             CreateMap<Node, NodeListDto>()
                 .ForMember(x => x.ReviewRate, opt => opt.MapFrom(x => x.Review.Rate))

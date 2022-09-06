@@ -14,6 +14,7 @@ namespace Business.Profiles
         public ReviewProfile()
         {
             CreateMap<ReviewCreateDto, Review>();
+            CreateMap<ReviewUpdateDto, Review>();
             CreateMap<Review, ReviewDto>();
         }
     }

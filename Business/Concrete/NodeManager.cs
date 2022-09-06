@@ -72,5 +72,19 @@ namespace Business.Concrete
 
             return new SuccessDataResult<NodeDto>(_mapper.Map<NodeDto>(node), Messages.FoundSuccessfully);
         }
+
+        public async Task<IDataResult<NodeDto>> UpdateAsync(NodeUpdateDto nodeUpdateDto)
+        {
+            var nodeToBeUpdated = await _nodeRepository.GetByIdAsync(nodeUpdateDto.Id);
+            var mappedNode = _mapper.Map(nodeUpdateDto, nodeToBeUpdated);
+            var updatedNode = await _nodeRepository.UpdateAsync(mappedNode);
+
+            if (updatedNode is null)
+            {
+                return new ErrorDataResult<NodeDto>(Messages.UpdateFail);
+            }
+
+            return new SuccessDataResult<NodeDto>(_mapper.Map<NodeDto>(updatedNode), Messages.UpdateSuccessfully);
+        }
     }
 }

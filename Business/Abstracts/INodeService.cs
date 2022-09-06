@@ -14,5 +14,6 @@ namespace Business.Abstracts
         Task<IDataResult<NodeDto>> AddAsync(NodeCreateDto entity);
         Task<IDataResult<NodeDto>> GetById(Guid id);
         Task<bool> DeleteAsync(Guid id);
+        Task<IDataResult<NodeDto>> UpdateAsync(NodeUpdateDto nodeUpdateDto);
     }
 }

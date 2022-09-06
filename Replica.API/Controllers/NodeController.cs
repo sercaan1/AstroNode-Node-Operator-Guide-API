@@ -67,5 +67,18 @@ namespace Replica.API.Controllers
 
             return BadRequest();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] NodeUpdateDto nodeUpdateDto)
+        {
+            var updateNodeResult = await _nodeService.UpdateAsync(nodeUpdateDto);
+
+            if (updateNodeResult.IsSuccess)
+            {
+                return Ok(updateNodeResult.Data);
+            }
+
+            return BadRequest(updateNodeResult.Message);
+        }
     }
 }
