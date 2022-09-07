@@ -1,16 +1,17 @@
 ﻿using Business.Abstracts;
 using Dtos.Nodes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Replica.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NodeController : ControllerBase
+    public class NodeController : BaseController
     {
         private readonly INodeService _nodeService;
 
-        public NodeController(INodeService nodeService)
+        public NodeController(INodeService nodeService, IMemoryCache memoryCache) : base(memoryCache)
         {
             _nodeService = nodeService;
         }
@@ -34,14 +35,25 @@ namespace Replica.API.Controllers
         [HttpGet("AllNodes")]
         public async Task<IActionResult> GetAllNodes()
         {
-            var getActiveNodesResult = await _nodeService.GetAllAsync();
-
-            if (getActiveNodesResult.IsSuccess)
+            if (_cache.TryGetValue("nodeListCacheKey", out List<NodeListDto> allNodes))
             {
-                return Ok(getActiveNodesResult.Data);
+                return Ok(allNodes);
             }
+            else
+            {
+                var getAllNodesResponse = await _nodeService.GetAllAsync();
 
-            return NotFound();
+                if (getAllNodesResponse.IsSuccess)
+                {
+                    allNodes = getAllNodesResponse.Data;
+
+                    _cache.Set("nodeListCacheKey", allNodes, memoryCacheOptions);
+
+                    return Ok(allNodes);
+                }
+
+                return NotFound(getAllNodesResponse.Message);
+            }
         }
 
         [HttpGet("{id}")]
