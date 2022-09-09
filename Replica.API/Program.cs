@@ -39,7 +39,7 @@ var app = builder.Build();
 
 app.ConfigureExceptionHandler(app.Services.GetRequiredService<ILoggerService>());
 
-if (app.Environment.IsProduction())
+if (app.Environment.IsDevelopment())
     app.UseHsts();
 
 // Configure the HTTP request pipeline.

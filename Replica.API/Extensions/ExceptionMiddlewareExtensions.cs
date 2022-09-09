@@ -8,7 +8,8 @@ namespace Replica.API.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureExceptionHandler(this WebApplication app, ILoggerService logger)
+        public static void ConfigureExceptionHandler(this WebApplication app,
+            ILoggerService logger)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -24,7 +25,8 @@ namespace Replica.API.Extensions
                             NotFoundException => StatusCodes.Status404NotFound,
                             _ => StatusCodes.Status500InternalServerError
                         };
-                        logger.LogError("There is a problem: " + contextFeature.Error);
+
+                        logger.LogError("There is a problem : " + contextFeature.Error);
 
                         await context.Response.WriteAsync(new ErrorDetails
                         {
