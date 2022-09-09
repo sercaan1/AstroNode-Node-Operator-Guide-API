@@ -6,6 +6,7 @@ using Core.Utilities.Concrete;
 using DataAccess.EntityFramework.Abstracts;
 using Dtos.Nodes;
 using Entity.Concrete;
+using Entity.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,7 @@ namespace Business.Concrete
             var node = await _nodeRepository.GetByIdAsync(id);
 
             if (node is null)
-                return new ErrorDataResult<NodeDto>(Messages.NotFound);
+                throw new NodeNotFoundException(id);
 
             return new SuccessDataResult<NodeDto>(_mapper.Map<NodeDto>(node), Messages.FoundSuccessfully);
         }
