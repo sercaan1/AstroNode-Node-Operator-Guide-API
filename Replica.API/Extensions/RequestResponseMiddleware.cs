@@ -16,48 +16,63 @@ namespace Replica.API.Extensions
 
         public async Task Invoke(HttpContext httpContext)
         {
-            var originalBodyStream = httpContext.Response.Body;
+            await LogRequest(httpContext);
 
-            var request = await GetRequestAsTextAsync(httpContext.Request);
+            var originalResponseBody = httpContext.Response.Body;
 
-            _logger.LogInfo(request);
+            using (var responseBody = new MemoryStream())
+            {
+                httpContext.Response.Body = responseBody;
+                await _next.Invoke(httpContext);
 
-            await using var responseBody = new MemoryStream();
-            httpContext.Response.Body = responseBody;
-
-            await _next.Invoke(httpContext);
-
-            var response = await GetResponseAsTextAsync(httpContext.Response);
-
-            _logger.LogInfo(response);
-
-            await responseBody.CopyToAsync(originalBodyStream);
+                await LogResponse(httpContext, responseBody, originalResponseBody);
+            }
         }
 
-        private async Task<string> GetResponseAsTextAsync(HttpResponse response)
+        private async Task LogResponse(HttpContext httpContext, MemoryStream responseBody, Stream originalResponseBody)
         {
-            response.Body.Seek(0, SeekOrigin.Begin);
-            var text = await new StreamReader(response.Body).ReadToEndAsync();
-            response.Body.Seek(0, SeekOrigin.Begin);
+            var responseContent = new StringBuilder();
+            responseContent.AppendLine("=== Response Info ===");
 
-            return text;
+            responseContent.AppendLine("-- headers");
+            foreach (var (headerKey, headerValue) in httpContext.Response.Headers)
+            {
+                responseContent.AppendLine($"header = {headerKey}    value = {headerValue}");
+            }
+
+            responseContent.AppendLine("-- body");
+            responseBody.Position = 0;
+            var content = await new StreamReader(responseBody).ReadToEndAsync();
+            responseContent.AppendLine($"body = {content}");
+            responseBody.Position = 0;
+            await responseBody.CopyToAsync(originalResponseBody);
+            httpContext.Response.Body = originalResponseBody;
+
+            _logger.LogInfo(responseContent.ToString());
         }
 
-        private async Task<string> GetRequestAsTextAsync(HttpRequest request)
+        private async Task LogRequest(HttpContext httpContext)
         {
-            var body = request.Body;
+            var requestContent = new StringBuilder();
 
-            request.EnableBuffering();
+            requestContent.AppendLine("=== Request Info ===");
+            requestContent.AppendLine($"method = {httpContext.Request.Method.ToUpper()}");
+            requestContent.AppendLine($"path = {httpContext.Request.Path}");
 
-            var buffer = new byte[Convert.ToInt32(request.ContentLength)];
+            requestContent.AppendLine("-- headers");
+            foreach (var (headerKey, headerValue) in httpContext.Request.Headers)
+            {
+                requestContent.AppendLine($"header = {headerKey}    value = {headerValue}");
+            }
 
-            await request.Body.ReadAsync(buffer, 0, buffer.Length);
+            requestContent.AppendLine("-- body");
+            httpContext.Request.EnableBuffering();
+            var requestReader = new StreamReader(httpContext.Request.Body);
+            var content = await requestReader.ReadToEndAsync();
+            requestContent.AppendLine($"body = {content}");
 
-            var bodyAsText = Encoding.UTF8.GetString(buffer);
-
-            request.Body = body;
-
-            return $"{request.Scheme} {request.Host} {request.Path} {request.QueryString} {bodyAsText}";
+            _logger.LogInfo(requestContent.ToString());
+            httpContext.Request.Body.Position = 0;
         }
     }
 }
