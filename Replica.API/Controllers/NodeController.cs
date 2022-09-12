@@ -18,6 +18,7 @@ namespace Replica.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] NodeCreateDto nodeCreateDto)
         {
             if (ModelState.IsValid)
@@ -69,6 +70,7 @@ namespace Replica.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deleteNodeResult = await _nodeService.DeleteAsync(id);
@@ -82,6 +84,7 @@ namespace Replica.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] NodeUpdateDto nodeUpdateDto)
         {
             var updateNodeResult = await _nodeService.UpdateAsync(nodeUpdateDto);

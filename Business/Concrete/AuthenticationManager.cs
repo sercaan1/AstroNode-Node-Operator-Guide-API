@@ -26,9 +26,9 @@ namespace Business.Concrete
             _userManager = userManager;
             _configuration = configuration;
         }
-        public async Task<IDataResult<object>> LoginAsync(LoginDto loginDto)
+        public async Task<IDataResult<string>> LoginAsync(LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.Username);
+            var user = await _userManager.FindByNameAsync(loginDto.Email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginDto.Password))
             {
@@ -36,7 +36,7 @@ namespace Business.Concrete
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Name, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
@@ -47,14 +47,10 @@ namespace Business.Concrete
 
                 var token = GetToken(authClaims);
 
-                return new SuccessDataResult<Object>(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                }, Messages.LoginSuccessfully);
+                return new SuccessDataResult<string>(new JwtSecurityTokenHandler().WriteToken(token), Messages.LoginSuccessfully);
             }
 
-            return new ErrorDataResult<Object>(Messages.LoginFail);
+            return new ErrorDataResult<string>(Messages.LoginFail);
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

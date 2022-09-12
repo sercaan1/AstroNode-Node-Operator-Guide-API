@@ -10,6 +10,6 @@ namespace Business.Abstracts
 {
     public interface IAuthenticationService
     {
-        Task<IDataResult<Object>> LoginAsync(LoginDto loginDto);
+        Task<IDataResult<string>> LoginAsync(LoginDto loginDto);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Dtos.Reviews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Replica.API.Controllers
@@ -16,6 +17,7 @@ namespace Replica.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] ReviewCreateDto entity)
         {
             if (ModelState.IsValid)
