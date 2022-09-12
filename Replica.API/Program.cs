@@ -1,6 +1,8 @@
 using Business.Abstracts;
 using Business.Profiles;
+using DataAccess.EntityFramework.Abstracts;
 using DataAccess.EntityFramework.Context;
+using DataAccess.EntityFramework.Seeds;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +25,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(opt =>
 {
@@ -57,11 +60,10 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSetting
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("V1", new OpenApiInfo
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "V1",
-        Title = "ReplicaAPI",
-        Description = "Node Replica WebAPI"
+        Version = "v1",
+        Title = "Replica API"
     });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -93,6 +95,18 @@ builder.Services.AddAutoMapper(typeof(IProfile).Assembly);
 builder.Services.AddRepositoryServices();
 builder.Services.AddBusinessServices();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDevClient",
+        b =>
+        {
+            b
+                .WithOrigins("https://localhost:7269")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 app.ConfigureExceptionHandler(app.Services.GetRequiredService<ILoggerService>());
@@ -106,6 +120,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+await app.Services.SeedData();
 
 app.UseHttpsRedirection();
 
