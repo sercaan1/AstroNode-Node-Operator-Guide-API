@@ -28,6 +28,11 @@ namespace Replica.API.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = await _userManager.FindByNameAsync(loginDto.Username);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginDto.Password))
