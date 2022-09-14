@@ -28,6 +28,7 @@ namespace Replica.API.Extensions
             services.AddScoped<IReviewService, ReviewManager>();
             services.AddSingleton<ILoggerService, LoggerManager>();
             services.AddScoped<IAuthenticationService, AuthenticationManager>();
+            services.AddScoped<IGuideService, GuideManager>();
         }
     }
 }

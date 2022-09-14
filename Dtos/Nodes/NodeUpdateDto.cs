@@ -1,4 +1,5 @@
-﻿using Dtos.Hardwares;
+﻿using Dtos.Guides;
+using Dtos.Hardwares;
 using Dtos.Reviews;
 using Dtos.SocialMedias;
 using System;
@@ -19,5 +20,6 @@ namespace Dtos.Nodes
         public HardwareUpdateDto Hardware { get; set; }
         public ReviewUpdateDto Review { get; set; }
         public SocialMediaUpdateDto SocialMedia { get; set; }
+        public GuideUpdateDto Guide { get; set; }
     }
 }

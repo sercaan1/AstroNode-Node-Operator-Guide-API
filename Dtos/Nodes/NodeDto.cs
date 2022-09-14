@@ -1,4 +1,5 @@
-﻿using Dtos.Hardwares;
+﻿using Dtos.Guides;
+using Dtos.Hardwares;
 using Dtos.Reviews;
 using Dtos.SocialMedias;
 using Entity.Concrete;
@@ -20,5 +21,6 @@ namespace Dtos.Nodes
         public HardwareDto Hardware { get; set; }
         public ReviewDto Review { get; set; }
         public SocialMediaDto SocialMedia { get; set; }
+        public GuideDto Guide { get; set; }
     }
 }
